@@ -1,29 +1,36 @@
 "use client"
-import  from '../components/LanguageSwitcher';
-import {  } from '../contexts/LanguageContext';
+import React from 'react';
+import { LanguageProvider, useLanguage } from '../contexts/LanguageContext';
+import LanguageSwitcher from '../components/LanguageSwitcher';
+
+const HomePage = () => {
+  const { language } = useLanguage();
+
+  const getTextBasedOnLanguage = () => {
+    switch (language) {
+      case 'French':
+        return 'Bienvenue à Next.js!';
+      case 'Spanish':
+        return '¡Bienvenido a Next.js!';
+      default:
+        return 'Welcome to Next.js!';
+    }
+  };
+
+  return (
+    <div>
+      <LanguageSwitcher />
+      <h1>{getTextBasedOnLanguage()}</h1>
+    </div>
+  );
+};
 
 const Home = () => {
-    
-
-    const content = {
-        en: {
-            welcome: 'Welcome to Next.js!'
-        },
-        fr: {
-            welcome: 'Bienvenue à Next.js!'
-        },
-        es: {
-            welcome: '¡Bienvenido a Next.js!'
-        }
-        // ... add other languages and translations as needed
-    };
-
-    return (
-        <div>
-            <h1>{}</h1>
-            <LanguageSwitcher />
-        </div>
-    );
+  return (
+    <LanguageProvider>
+      <HomePage />
+    </LanguageProvider>
+  );
 };
 
 export default Home;
